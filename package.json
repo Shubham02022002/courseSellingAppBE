@@ -1,0 +1,21 @@
+{
+  "name": "coursesellingapp",
+  "version": "1.0.0",
+  "description": "Same as the last assignment but you need to use jwts for authentication.\r We have introduced the signgin endpoints for both users and admins.\r For this one, in every authenticated requests, you need to send the jwt in headers (Authorization : \"Bearer <actual token>\").\r You need to use mongodb to store all the data persistently.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.1",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.0.1",
+    "zod": "^4.1.13"
+  }
+}
