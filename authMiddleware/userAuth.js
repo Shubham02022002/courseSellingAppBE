@@ -18,8 +18,9 @@ const authenticateUser = (req, res, next) => {
     return res.status(401).json({ message: "Authentication required." });
   }
   try {
+    let userId;
     const payload = jwt.verify(token, SECRET);
-    req.user = payload;
+    req.userId = payload.id;
     next();
   } catch (error) {
     console.log(error);
@@ -27,4 +28,4 @@ const authenticateUser = (req, res, next) => {
   }
 };
 
-module.exports = authenticateUser;
+module.exports = { authenticateUser, userSchema };

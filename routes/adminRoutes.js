@@ -29,7 +29,7 @@ router.post("/signup", validate(adminSchema), async (req, res) => {
   }
 });
 
-router.post("/signin", authenticateAdmin, async (req, res) => {
+router.post("/signin", async (req, res) => {
   const { username, password } = req.body;
   try {
     const admin = await Admin.findOne({ username });
@@ -49,16 +49,36 @@ router.post("/signin", authenticateAdmin, async (req, res) => {
   }
 });
 
-// router.post(
-//   "/course",
-//   authenticateAdmin,
-//   validate(CourseSchema),
-//   async (req, res) => {
-//     const { title, description, price, imageLink, isPublished } = req.body;
-//     try {
-    
-//     } catch (error) {}
-//   }
-// );
+router.use(authenticateAdmin);
+
+router.post("/course", validate(CourseSchema), async (req, res) => {
+  const { title, description, price, imageLink, isPublished } = req.body;
+  try {
+    const newCourse = await Course.create({
+      title,
+      description,
+      price,
+      imageLink,
+      isPublished,
+    });
+    res.status(201).json({
+      message: "Course created successfully",
+      courseId: newCourse._id,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error." });
+  }
+});
+
+router.get("/courses", async (req, res) => {
+  try {
+    const courses = await Course.find({});
+    res.status(200).json({ courses });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error." });
+  }
+});
 
 module.exports = router;
